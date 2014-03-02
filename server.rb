@@ -24,3 +24,8 @@ get '/db_manager' do
   runDBShell(ENV['DATABASE_URL'])
 end
 
+# Receive input from SQL input form
+post '/db_manager' do
+  runDBShell(ENV['DATABASE_URL'], params)
+end
+
