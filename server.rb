@@ -5,7 +5,7 @@
 $: << File.expand_path(File.dirname(__FILE__) + "/lib") #Add lib folder to path
 
 require 'sinatra'
-require 'pgmanager'
+require 'pgmanagerdb'
 
 get '/' do
 	erb :index
@@ -13,5 +13,14 @@ end
 
 get '/testdb' do
 	testDBConnection(ENV['DATABASE_URL'])
+end
+
+post '/login' do
+	loginUser(ENV['DATABASE_URL'], params)	
+end
+
+# Display SQL input form
+get '/db_manager' do
+  runDBShell(ENV['DATABASE_URL'])
 end
 
