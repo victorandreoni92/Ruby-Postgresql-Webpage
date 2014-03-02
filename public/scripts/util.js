@@ -32,7 +32,37 @@ function submit_register(){
  * Returns true if succesful login, false otherwise
 */
 function submit_login(){
-    alert("loging alert");
-    return false;
+	// Get arguments for login
+	var username = document.getElementById("log_user");
+	var password = document.getElementById("log_pass");
+	var parameters = "username"+username+"&password="+password;
+	
+	// Execute SQL check. SQL injection is handled by server
+    var request = getXHR();
+    request.onreadystatechange =
+        function() {
+            if(request.readyState == 4 && request.status == 200) {
+                signalLoginError(request.responseText);
+            }
+        };
+    request.open('POST', "/login", false);
+    request.send(parameters);
+    return true;
+}
+            
+// Modifies DOM to set new target received from server
+// @param newTarget The new target to update DOM to
+function signalLoginError(error){                
+    alert(error);
+}
+            
+// Cross-browser compatible XMLHttpRequest         
+// Credits to Fotiman from http://www.webmasterworld.com/javascript/4027629.htm
+/** 
+* Gets an XMLHttpRequest. For Internet Explorer 6, attempts to use MXSML 3.0.
+* @return {XMLHttpRequest or equivalent ActiveXObject} 
+*/ 
+function getXHR() { 
+    return window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
 }
 

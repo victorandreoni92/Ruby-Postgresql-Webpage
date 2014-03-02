@@ -61,17 +61,29 @@ end
 
 
 # Function to login user if it exists in users table
-#def loginUser(dbPath, params)
-#	#Get a connection with the database
-#	connection = connectToDB(dbPath)
-#
-#	#Query the database for the user and store results
-#	response = connection.exec("SELECT * FROM users WHERE \
-#		username='#{user}' AND password='#{pass}';")
-#
-#	#Cycle through result
-#
-#
-#
-#end
+def loginUser(dbPath, params)
+
+	# Get username and password from parameters
+	@user = params[:username]
+	@pass = params[:password]
+ 
+	# Get a connection with the database
+	connection = connectToDB(dbPath)
+
+  # Use prepared statement to prevent SQL injection
+  connection.prepare("login_user", "SELECT * FROM users WHERE \
+    username=$1 AND password=$2")
+
+  response = connection.exec_prepared("login_user", [@user, @pass])
+
+	#Query the database for the user and store results
+	#response = connection.exec("SELECT * FROM users WHERE \
+	# username='#{user}' AND password='#{pass}';")
+
+	if response.ntuples() == 0
+		return 1 # error code for invalid username and password
+	else
+		return response.getvalue(0, 1) # return username from response
+	end
+end
 

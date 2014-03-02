@@ -11,12 +11,27 @@ get '/' do
 	erb :index
 end
 
+get '/panel' do
+	if session[:loggeduser] == nil
+		"You must be logged in to access the database panel!"
+	else
+		erb :panel
+	end
+end
+
+
 get '/testdb' do
 	testDBConnection(ENV['DATABASE_URL'])
 end
 
 post '/login' do
-	loginUser(ENV['DATABASE_URL'], params)	
+	result = loginUser(ENV['DATABASE_URL'], params)	# Execute login routine
+	if result == 1 # result code for error
+		return "Invalid username and password combination"
+	else
+		session[:loggeduser] = result
+		redirect to('/panel')
+	end
 end
 
 # Display SQL input form
