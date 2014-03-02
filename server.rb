@@ -5,7 +5,7 @@
 $: << File.expand_path(File.dirname(__FILE__) + "/lib") #Add lib folder to path
 
 require 'sinatra'
-require 'pgmanagerdb'
+require 'pgmanager'
 
 get '/' do
 	erb :index
