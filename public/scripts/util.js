@@ -141,7 +141,7 @@ function queryDB(){
 	        	var jsObj = JSON.parse(request.responseText);
 				
 				// Print results of query on a table
-				var resultView = "<br /><table class='queryResultTable'><tr><th>Model Code</th><th>Name</th><th>Release Year</th><th>Company</th></tr>"; // Open table	
+				var resultView = "<br /><table class='queryResultTable' style='min-width: 100%;'><tr><th>Model Code</th><th>Name</th><th>Release Year</th><th>Company</th></tr>"; // Open table	
 				for (var i = 0; i < jsObj.length; i++) {
 					var phone = jsObj[i];
 					resultView = resultView + "<tr>";
