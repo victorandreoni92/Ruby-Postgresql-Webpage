@@ -70,3 +70,8 @@ post '/add' do
 	return addToDB(ENV['DATABASE_URL'], params[:code], params[:name], params[:company], params[:year])
 end
 
+# Update smartphones in database
+post '/update' do
+	return updateDB(ENV['DATABASE_URL'], params[:code], params[:name], params[:company], params[:year])
+end
+

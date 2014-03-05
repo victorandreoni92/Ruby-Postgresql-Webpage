@@ -191,6 +191,39 @@ function addToDB(){
 	request.open("POST", "/add", true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	request.send(parameters);
+}
+
+// Updates smartphones on database with information provided by user
+function updateDB() {
+	var code = document.getElementById("uCode").value.toString();
+	var name = document.getElementById("uName").value.toString();
+	var company = document.getElementById("uCompany").value.toString();
+	var year = document.getElementById("uYear").value.toString();
+	
+	// Perform local validation first
+	if (!code || !name || !company || !year || code.trim().length == 0 || name.trim().length == 0 || company.trim().length == 0 || year.trim().length == 0){
+		document.getElementById("updateResult").innerHTML = "<p>Please fill in all values!</p>";
+		return false;
+	}
+
+	// Send request to server
+	var parameters = "code="+code+"&name="+name+"&company="+company+"&year="+year;
+	var request = getXHR();
+	request.onreadystatechange =
+	    function() {
+	        if(request.readyState == 4 && request.status == 200) {
+				if (parseInt(request.responseText) == 1) { // Phone model code does not exist
+					document.getElementById("updateResult").innerHTML = "<p>Model code does not exist!</p>"
+					return false;
+				} else { // If successful, submit form and hide error
+					document.getElementById("updateResult").innerHTML = "<p>" + request.responseText + " information updated!</p>"
+					return true;
+				}
+	        }
+	    };
+	request.open("POST", "/update", true);
+	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	request.send(parameters);
 
 }
 

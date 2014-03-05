@@ -122,8 +122,27 @@ def addToDB(dbPath, code, name, company, year)
 
 end
 
-
-
+# Function to update smartphones in database with information provided by user
+def updateDB(dbPath, code, name, company, year)
+	# Get a connection with the database
+	connection = connectToDB(dbPath)
+	
+	connection.prepare("check_model", "SELECT * FROM smartphones WHERE \
+		model=$1")
+	modelResponse = connection.exec_prepared("check_model", [code])
+	
+	if 	modelResponse.ntuples() == 0
+		return 1.to_s # Model does not exist, so it cannot be updated
+	else
+		# Update smartphone with provided information
+		connection.prepare("update_smartphone", "UPDATE smartphones SET name = $1, \
+			releaseyear = $2, company = $3 WHERE model = $4")
+		connection.exec_prepared("update_smartphone", [name, year, company, code])
+		
+		# Process result
+		return name # Return name of smartphone added
+	end
+end
 
 
 
