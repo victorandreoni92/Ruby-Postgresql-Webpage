@@ -43,7 +43,7 @@ p{
 }
 
 h2{
-	color: red;
+	color: #121E31;
 }
 
 h3{
@@ -55,7 +55,7 @@ table{
 } 
 
 th, td{
-	border: 3px dotted orange;
+	border: 2px solid black;
 }
 
 .input_holder{
@@ -72,6 +72,25 @@ th, td{
 	height: 80px;
 	width: 100%;
 	margin: 0;
+}
+
+// Table style for query results borrowed from w3schools.com
+table.queryResultTable{
+	border-collapse:collapse;
+	width:100%;
+}
+
+table.queryResultTable tr:nth-child(odd)	{background-color:#F6F4F0;}
+table.queryResultTable tr:nth-child(even)	{background-color:#ffffff;}
+
+table.queryResultTable tr.fixzebra			{background-color:#F6F4F0;}
+
+table.queryResultTable th{
+	color:#ffffff;background-color:#555555;border:1px solid #555555;padding:3px;vertical-align:top;text-align:left;
+}
+
+table.queryResultTable td{
+	border:1px solid #d4d4d4;padding:5px;padding-top:7px;padding-bottom:7px;vertical-align:top;
 }
 
 img.center {

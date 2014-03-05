@@ -21,16 +21,56 @@ function show_register(){
 }
 
 /* Function to handle user registration
- * Returns true if succesful registration, false otherwise
 */
 function submit_register(){
-    alert("register alert");
-    return false;
+	var name = document.getElementById("reg_name").value;
+	var username = document.getElementById("reg_user").value;
+	var password = document.getElementById("reg_pass").value;
+	var errorMessage = document.getElementById("register_fail_message");
+	
+	// Perform local validation before sending information to server
+	if (!name || !username || !password || name.length == 0 || username.length == 0 ||
+		password.length == 0){
+			errorMessage.style.display="block";
+			errorMessage.innerHTML = "Please fill in all fields!";
+			return false;
+	}
+	
+	// Perform server validation
+	var parameters = "fullname="+name+"&username="+username+"&password="+password;
+	var request = getXHR();
+	request.onreadystatechange =
+	    function() {
+	        if(request.readyState == 4 && request.status == 200) {
+	            processRegistrationResponse(request.responseText);
+	        }
+	    };
+	request.open("POST", "/register", true);
+	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	request.send(parameters);
+		
+
+}
+
+// Process response from registration request
+// @param response Response from server
+function processRegistrationResponse(response) {
+	var errorMessage = document.getElementById("register_fail_message");
+	var responseCode = parseInt(response);
+
+	if (responseCode == 0) { // Success
+		errorMessage.style.display="none";
+		document.getElementById("registration_form").submit();
+	} else if (responseCode == 1) { // Username already exists
+		errorMessage.style.display="block";
+		errorMessage.innerHTML = "The selected username already exists! Please pick a different one";
+		document.getElementById("reg_pass").value = ''; // Reset password field for security
+		return false;
+	}
 }
 
 
 /* Function to handle user login
- * Returns true if succesful login, false otherwise
 */
 function submit_login(){
 	// Get arguments for login
@@ -46,7 +86,7 @@ function submit_login(){
                 processLoginResponse(request.responseText);
             }
         };
-    request.open('POST', "/login", true); // Block until login response
+    request.open("POST", "/login", true);
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     request.send(parameters);
 }
@@ -77,4 +117,53 @@ function logoff() {
 function getXHR() { 
     return window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
 }
+
+// Search database for the specified search terms
+// Empty fields will return all possible results. If all fields are empty, the whole db will be returned
+// This may be inappropriate in terms of performance in large systems, but for this application, it is adequate 
+function queryDB(){
+	var name = document.getElementById("qName").value;
+	var company = document.getElementById("qCompany").value;
+	var year = document.getElementById("qYear").value;
+	var timestamp = new Date().getTime(); // Used to prevent AJAX caching
+	
+	// Sanitize input. If fields left blank, match to anything. This is done to provide as many results as possible
+	// Use '%' for SQL query to match anything
+	if (!name || name.length == 0){name = ""}
+	if (!company || company.length == 0){company = ""}
+	if (!year || year.length == 0){year = ""}
+	
+	// Execute SQL search
+	var request = getXHR();
+	request.onreadystatechange =
+	    function() {
+	        if(request.readyState == 4 && request.status == 200) {
+	        	var jsObj = JSON.parse(request.responseText);
+				
+				// Print results of query on a table
+				var resultView = "<br /><table class='queryResultTable'><tr><th>Model Code</th><th>Name</th><th>Release Year</th><th>Company</th></tr>"; // Open table	
+				for (var i = 0; i < jsObj.length; i++) {
+					var phone = jsObj[i];
+					resultView = resultView + "<tr>";
+					for (var j = 0; j < phone.length; j++) {
+						resultView = resultView + "<td>" + phone[j] + "</td>"
+					}
+					resultView = resultView + "</tr>";
+				}
+				resultView = resultView + "</table>";
+				document.getElementById("queryResult").innerHTML = resultView;
+	        }
+	    };
+	request.open("GET", "/search?name="+name+"&company="+company+"&year="+year+ "&ts="+timestamp+"", true); // Use get so that query can be bookmarked
+	request.send();
+	
+
+}
+
+
+
+
+
+
+
 

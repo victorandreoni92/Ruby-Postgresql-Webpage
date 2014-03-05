@@ -43,12 +43,13 @@
 			<br />
 
 			<div class="input_holder">
-				<form id="registration_form" style="display: none;" method="post" action="/register">
+				<form id="registration_form" style="display: none;" method="post" action="/panel">
 					Full Name: <input type="text" id="reg_name" name="fullname" /> <br />
 					Username: <input type="text" id="reg_user" name="username" /> <br />
 					Password: <input type="password" id="reg_pass" name="password"/> <br />
-					<input type="submit" value="Submit" />
+					<input type="button" value="Submit" onclick="submit_register()"/>
 				</form>
+				<p id="register_fail_message" style="display: none;"> Registration Failed!! </p>
 			</div>
 
 			<div class="input_holder">
