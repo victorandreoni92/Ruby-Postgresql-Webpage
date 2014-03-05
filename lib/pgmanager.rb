@@ -97,11 +97,30 @@ def queryDB(dbPath, name, company, year)
 	response = connection.exec(query)
 	
 	return response.values().to_json
-	
-	
-	
 end
 
+# Function to add smartphones to database from data input by user
+def addToDB(dbPath, code, name, company, year)
+	# Get a connection with the database
+	connection = connectToDB(dbPath)
+	
+	connection.prepare("check_model", "SELECT * FROM smartphones WHERE \
+		model=$1")
+	modelResponse = connection.exec_prepared("check_model", [code])
+	
+	if 	modelResponse.ntuples() != 0
+		return 1.to_s # Model already exists
+	else
+		# Add smartphone with provided information
+		connection.prepare("add_smartphone", "INSERT INTO smartphones (model, name, \
+			releaseyear, company) VALUES ($1, $2, $3, $4)")
+		connection.exec_prepared("add_smartphone", [code, name, year, company])
+		
+		# Process result
+		return name # Return name of smartphone added
+	end
+
+end
 
 
 

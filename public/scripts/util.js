@@ -160,6 +160,40 @@ function queryDB(){
 
 }
 
+// Adds smartphones to DB from information provided by user
+function addToDB(){
+	var code = document.getElementById("aCode").value.toString();
+	var name = document.getElementById("aName").value.toString();
+	var company = document.getElementById("aCompany").value.toString();
+	var year = document.getElementById("aYear").value.toString();
+	
+	// Perform local validation first
+	if (!code || !name || !company || !year || code.trim().length == 0 || name.trim().length == 0 || company.trim().length == 0 || year.trim().length == 0){
+		document.getElementById("addResult").innerHTML = "<p>Please fill in all values!</p>";
+		return false;
+	}
+	
+	// Send request to server
+	var parameters = "code="+code+"&name="+name+"&company="+company+"&year="+year;
+	var request = getXHR();
+	request.onreadystatechange =
+	    function() {
+	        if(request.readyState == 4 && request.status == 200) {
+				if (parseInt(request.responseText) == 1) { // Phone model code already exists
+					document.getElementById("addResult").innerHTML = "<p>Model code already exists!</p>"
+					return false;
+				} else { // If successful, submit form and hide error
+					document.getElementById("addResult").innerHTML = "<p>" + request.responseText + " added to database!</p>"
+					return true;
+				}
+	        }
+	    };
+	request.open("POST", "/add", true);
+	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	request.send(parameters);
+
+}
+
 
 
 

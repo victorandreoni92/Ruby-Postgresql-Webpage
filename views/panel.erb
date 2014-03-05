@@ -50,10 +50,11 @@
 			<h2>Add Smartphones to the Database</h2>
 			<hr />
 			<div id="addDB">
-				Phone Name: <input type="text" id="qName" value="" /> <br />
-				Manufacturer: <input type="text" id="qCompany" value="" /> <br />
-				Release Year: <input type="text" id="qYear" value="" /> <br />
-				<input type="button" id="qSubmit" value="Search" onclick="addDB()"/>
+				Model Code: <input type="text" id="aCode" value="" /> <br />
+				Phone Name: <input type="text" id="aName" value="" /> <br />
+				Manufacturer: <input type="text" id="aCompany" value="" /> <br />
+				Release Year: <input type="text" id="aYear" value="" /> <br />
+				<input type="button" id="aSubmit" value="Add" onclick="addToDB()"/>
 				<div id="addResult">
 				</div>
 			</div>
@@ -61,14 +62,16 @@
 			<h2>Update Smartphones in the Database</h2>
 			<hr />
 			<div id="updateDB">
-				Phone Name: <input type="text" id="qName" value="" /> <br />
-				Manufacturer: <input type="text" id="qCompany" value="" /> <br />
-				Release Year: <input type="text" id="qYear" value="" /> <br />
-				<input type="button" id="qSubmit" value="Search" onclick="updateDB()"/>
+				Phone Model Code to Update: <input type="text" id="uCode" value="" /> <br />
+				New Name: <input type="text" id="uName" value="" /> <br />
+				New Manufacturer: <input type="text" id="uCompany" value="" /> <br />
+				New Release Year: <input type="text" id="uYear" value="" /> <br />
+				<input type="button" id="uSubmit" value="Update" onclick="updateDB()"/>
 				<div id="updateResult">
 				</div>
 			</div>
 		</div>
+		<br /><br />
 		
 		
 		<div>

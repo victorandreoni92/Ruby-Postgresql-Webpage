@@ -65,3 +65,8 @@ get '/search' do
 	return queryDB(ENV['DATABASE_URL'], params["name"], params["company"], params["year"])
 end
 
+# Add smartphones to database
+post '/add' do
+	return addToDB(ENV['DATABASE_URL'], params[:code], params[:name], params[:company], params[:year])
+end
+
