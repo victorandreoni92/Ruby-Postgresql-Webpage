@@ -28,32 +28,44 @@ function submit_register(){
     return false;
 }
 
+
 /* Function to handle user login
  * Returns true if succesful login, false otherwise
 */
 function submit_login(){
 	// Get arguments for login
-	var username = document.getElementById("log_user");
-	var password = document.getElementById("log_pass");
-	var parameters = "username"+username+"&password="+password;
+	var username = document.getElementById("log_user").value;
+	var password = document.getElementById("log_pass").value;
+	var parameters = "username="+username+"&password="+password;
 	
 	// Execute SQL check. SQL injection is handled by server
     var request = getXHR();
     request.onreadystatechange =
         function() {
             if(request.readyState == 4 && request.status == 200) {
-                signalLoginError(request.responseText);
+                processLoginResponse(request.responseText);
             }
         };
-    request.open('POST', "/login", false);
+    request.open('POST', "/login", true); // Block until login response
+    request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     request.send(parameters);
-    return true;
 }
             
-// Modifies DOM to set new target received from server
-// @param newTarget The new target to update DOM to
-function signalLoginError(error){                
-    alert(error);
+// Process response from login request
+// @param response Response from server
+function processLoginResponse(response){                
+    if (parseInt(response) == 1) { // If login error, do not submit form and display error
+		document.getElementById("login_fail_message").style.display="block";
+    	return false;
+    } else { // If successful, submit form and hide error
+    	document.getElementById("login_fail_message").style.display="none";
+    	document.getElementById("login_form").submit();
+    }
+}
+
+// Logs user off, clearing session on server
+function logoff() {
+	window.location = "/logoff";
 }
             
 // Cross-browser compatible XMLHttpRequest         

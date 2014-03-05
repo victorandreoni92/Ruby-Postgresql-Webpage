@@ -28,10 +28,11 @@
 		
 		<div id="content"  style="min-height: 600px;">
 			<br />
-			<img src='./database.jpg' class='center'/> 
 			<p style="text-align: center"> 
-				Welcome back <%= session[:loggeduser] %>
+				Welcome back, <%= session[:loggeduser] %>!
 			</p>
+			<input type="button" name="logoff" value="Log Off" onclick="logoff()" />
+			<img src='./database.jpg' class='center' height="256px" width="256px"/> 
 
 		</div>
 		

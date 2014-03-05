@@ -43,20 +43,22 @@
 			<br />
 
 			<div class="input_holder">
-				<form id="registration_form" style="display: none;" onSubmit="return submit_register()">
-					Full Name: <input type="text" id="reg_name" /> <br />
-					Username: <input type="text" id="reg_user" /> <br />
-					Password: <input type="password" id="reg_pass" /> <br />
+				<form id="registration_form" style="display: none;" method="post" action="/register">
+					Full Name: <input type="text" id="reg_name" name="fullname" /> <br />
+					Username: <input type="text" id="reg_user" name="username" /> <br />
+					Password: <input type="password" id="reg_pass" name="password"/> <br />
 					<input type="submit" value="Submit" />
 				</form>
 			</div>
 
 			<div class="input_holder">
-				<form id="login_form" style="display: none;" onSubmit="return submit_login()">
-					Username: <input type="text" id="log_user" /> <br />
-					Password: <input type="password" id="log_pass" /> <br />
-					<input type="submit" value="Submit" />
+				<form id="login_form" style="display: none;" method="post" action="/panel">
+					Username: <input type="text" id="log_user" name="username"/> <br />
+					Password: <input type="password" id="log_pass" name="password" /> <br />
+					<input type="button" value="Submit" onClick="submit_login()" />
 				</form>
+				<br />
+				<p id="login_fail_message" style="display: none;"> Login Failed!! </p>
 			</div>
 
 		</div>
