@@ -144,10 +144,3 @@ def updateDB(dbPath, code, name, company, year)
 	end
 end
 
-
-
-
-
-
-
-

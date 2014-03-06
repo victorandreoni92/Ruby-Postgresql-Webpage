@@ -13,17 +13,16 @@ function hideAllStatusPanel() {
 	document.getElementById("queryResult").style.display="none";
 	document.getElementById("addResult").style.display="none";
 	document.getElementById("updateResult").style.display="none";
-	
 }
 
 // Function to limit input of certain text fields to numbers
+// Returns true if key should be processed, false otherwise
 function isNumber(evt){
 	var code = (evt.which) ? evt.which : event.keyCode;
   	if (code != 46 && code > 31 && (code < 48 || code > 57)){
      	alert("This field can only contain numbers!");
      	return false;
      }
-
   return true;
 }
 
@@ -47,8 +46,7 @@ function show_register(){
     document.getElementById("registration_form").style.display="block";
 }
 
-/* Function to handle user registration
-*/
+// Function to handle user registration
 function submit_register(){
 	hideAllErrorsIndex();
 	var name = document.getElementById("reg_name").value.toString();
@@ -73,11 +71,10 @@ function submit_register(){
 	            processRegistrationResponse(request.responseText);
 	        }
 	    };
+	    
 	request.open("POST", "/register", true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	request.send(parameters);
-		
-
 }
 
 // Process response from registration request
@@ -97,9 +94,7 @@ function processRegistrationResponse(response) {
 	}
 }
 
-
-/* Function to handle user login
-*/
+// Function to handle user login
 function submit_login(){
 	hideAllErrorsIndex();
 	// Get arguments for login
@@ -184,7 +179,8 @@ function queryDB(){
 					document.getElementById("queryResult").style.display="block";
 				} else {			
 					// Print results of query on a table
-					var resultView = "<br /><table class='queryResultTable' style='min-width: 100%;'><tr><th>Model Code</th><th>Name</th><th>Release Year</th><th>Company</th></tr>"; // Open table	
+					var resultView = "<br /><table class='queryResultTable' style='min-width: 100%;'><tr><th> \
+						Model Code</th><th>Name</th><th>Release Year</th><th>Company</th></tr>"; // Open table	
 					for (var i = 0; i < jsObj.length; i++) {
 						var phone = jsObj[i];
 						resultView = resultView + "<tr>";
@@ -214,7 +210,8 @@ function addToDB(){
 	var year = document.getElementById("aYear").value.toString();
 	
 	// Perform local validation first
-	if (!code || !name || !company || !year || code.trim().length == 0 || name.trim().length == 0 || company.trim().length == 0 || year.trim().length == 0){
+	if (!code || !name || !company || !year || code.trim().length == 0 || name.trim().length == 0 || 
+		company.trim().length == 0 || year.trim().length == 0){
 		document.getElementById("addResult").innerHTML = "<p style='color:red;'>Please fill in all values!</p>";
 		document.getElementById("addResult").style.display="block";
 		return false;
@@ -292,11 +289,4 @@ function updateDB() {
 	request.send(parameters);
 
 }
-
-
-
-
-
-
-
 

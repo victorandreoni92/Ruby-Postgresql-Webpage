@@ -1,6 +1,6 @@
 # Victor Andreoni
 # CS4241 - Assignment 4
-# Index Ruby file to use with sinatra as server
+# Index Ruby file to use with Sinatra as server
 
 $: << File.expand_path(File.dirname(__FILE__) + "/lib") #Add lib folder to path
 
@@ -44,8 +44,6 @@ post '/register' do
 	end
 end
 
-
-
 # Login user by checking username and password with database - Called with AJAX
 post '/login' do
 	@username = params[:username].to_s 
@@ -62,7 +60,11 @@ end
 
 # Query database with provided search parameters
 get '/search' do
-	return queryDB(ENV['DATABASE_URL'], params["name"], params["company"], params["year"])
+	if session[:loggeduser] == nil
+		"You must be logged in to access the database panel!"
+	else
+		return queryDB(ENV['DATABASE_URL'], params["name"], params["company"], params["year"])
+	end
 end
 
 # Add smartphones to database
