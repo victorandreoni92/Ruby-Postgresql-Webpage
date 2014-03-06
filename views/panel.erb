@@ -29,19 +29,22 @@
 		<div id="content"  style="min-height: 600px;">
 			<div id="welcome">
 				<br />
-				<p style="text-align: center"> 
-					Welcome back, <%= session[:loggeduser] %>!
-				</p>
+				<h1 style="text-align: left; margin-bottom: 5px; color: #2626C9;"> 
+					Welcome, <%= session[:loggeduser] %>!
+				</h1>
 				<input type="button" name="logoff" value="Log Off" onclick="logoff()" />
 				<img src='./database.jpg' class='center' height="256px" width="256px"/> 
 			</div>
 			<br />
 			<h2>Search Smartphones in Database</h2>
 			<hr />
+			<p style="font-style: italic;"> Look up smartphones in the database using the available fields. Blank fields will
+			be interpreted as wildcards. As a result, leaving all fields blank will return all phones
+			in the database. </p>
 			<div id="queryDB">
-				Phone Name: <input type="text" id="qName" value="" /> <br />
-				Manufacturer: <input type="text" id="qCompany" value="" /> <br />
-				Release Year: <input type="text" id="qYear" value="" /> <br />
+				<div class="panelLeft">Phone Name:</div> <div class="panelRight"><input type="text" id="qName" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">Manufacturer:</div> <div class="panelRight"><input type="text" id="qCompany" value="" maxlength="28" /></div> <br />
+				<div class="panelLeft">Release Year:</div> <div class="panelRight"><input type="text" id="qYear" value="" maxlength="4" onkeypress="return isNumber(event)" /></div> <br />
 				<input type="button" id="qSubmit" value="Search" onclick="queryDB()"/>
 				<div id="queryResult">
 				</div>
@@ -49,11 +52,13 @@
 			<br />
 			<h2>Add Smartphones to the Database</h2>
 			<hr />
+			<p style="font-style: italic;"> Add smartphones to the database by filling the following fields. All fields are required.
+			If a model code already exists, the smartphone will not be added. </p>
 			<div id="addDB">
-				Model Code: <input type="text" id="aCode" value="" /> <br />
-				Phone Name: <input type="text" id="aName" value="" /> <br />
-				Manufacturer: <input type="text" id="aCompany" value="" /> <br />
-				Release Year: <input type="text" id="aYear" value="" /> <br />
+				<div class="panelLeft">Model Code:</div> <div class="panelRight"><input type="text" id="aCode" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">Phone Name:</div> <div class="panelRight"><input type="text" id="aName" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">Manufacturer:</div> <div class="panelRight"><input type="text" id="aCompany" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">Release Year:</div> <div class="panelRight"><input type="text" id="aYear" value="" maxlength="4" onkeypress="return isNumber(event)"/></div> <br />
 				<input type="button" id="aSubmit" value="Add" onclick="addToDB()"/>
 				<div id="addResult">
 				</div>
@@ -61,11 +66,13 @@
 			<br />
 			<h2>Update Smartphones in the Database</h2>
 			<hr />
+			<p style="font-style: italic;"> Update smartphones in the database. All fields are required for the update. The model code will
+			be used to determine which smartphone to update. As a result, the model code number cannot be updated. </p>
 			<div id="updateDB">
-				Phone Model Code to Update: <input type="text" id="uCode" value="" /> <br />
-				New Name: <input type="text" id="uName" value="" /> <br />
-				New Manufacturer: <input type="text" id="uCompany" value="" /> <br />
-				New Release Year: <input type="text" id="uYear" value="" /> <br />
+				<div class="panelLeft">Code to Update:</div> <div class="panelRight"><input type="text" id="uCode" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">New Name:</div> <div class="panelRight"><input type="text" id="uName" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">New Manufacturer:</div> <div class="panelRight"><input type="text" id="uCompany" value="" maxlength="28"/></div> <br />
+				<div class="panelLeft">New Release Year:</div> <div class="panelRight"><input type="text" id="uYear" value="" maxlength="4" onkeypress="return isNumber(event)"/></div> <br />
 				<input type="button" id="uSubmit" value="Update" onclick="updateDB()"/>
 				<div id="updateResult">
 				</div>

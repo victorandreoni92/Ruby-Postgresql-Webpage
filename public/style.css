@@ -43,15 +43,41 @@ p{
 }
 
 h2{
-	color: #121E31;
+	color: #2626C9;
 }
 
 h3{
-	color: blue;
+	color: black;
 }
 
 .input_holder{
 	text-align: center;
+}
+
+.left {
+	width: 50%;
+	float: left;
+	text-align: right;
+}
+
+.right {
+	width: 45%;
+	margin-left: 5px;
+	float: left;
+	text-align: left;
+}
+
+.panelLeft {
+	width: 16%;
+	float: left;
+	text-align: left;
+}
+
+.panelRight {
+	width: 79%;
+	margin-left: 5px;
+	float: left;
+	text-align: left;
 }
 
 #content {

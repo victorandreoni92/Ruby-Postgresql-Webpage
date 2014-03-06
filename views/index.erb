@@ -29,11 +29,11 @@
 		<div id="content"  style="min-height: 600px;">
 			<br />
 			<img src='./smartphones.jpg' class='center' width="525px" height="288px"/> 
-			<p style="text-align: center"> 
-				Welcome to the smartphone database!
+			<h3 style="text-align: center"> 
+				Welcome to the smartphone database! <br />
 				Please log in or register to access the 
 				database information!
-			</p>
+			</h3>
 
 			<div class="input_holder">
 				<input type="button" value="Login" onClick="show_login()" />
@@ -44,22 +44,22 @@
 
 			<div class="input_holder">
 				<form id="registration_form" style="display: none;" method="post" action="/panel">
-					Full Name: <input type="text" id="reg_name" name="fullname" /> <br />
-					Username: <input type="text" id="reg_user" name="username" /> <br />
-					Password: <input type="password" id="reg_pass" name="password"/> <br />
+					<div class="left">Full Name:</div> <div class="right"><input type="text" id="reg_name" name="fullname" maxlength="38"/></div> <br />
+					<div class="left">Username:</div> <div class="right"><input type="text" id="reg_user" name="username" maxlength="18"/></div> <br />
+					<div class="left">Password:</div> <div class="right"><input type="password" id="reg_pass" name="password" maxlength="9"/></div> <br />
 					<input type="button" value="Submit" onclick="submit_register()"/>
 				</form>
-				<p id="register_fail_message" style="display: none;"> Registration Failed!! </p>
+				<p id="register_fail_message" style="display: none; color: red;" > Registration Failed! </p>
 			</div>
 
 			<div class="input_holder">
 				<form id="login_form" style="display: none;" method="post" action="/panel">
-					Username: <input type="text" id="log_user" name="username"/> <br />
-					Password: <input type="password" id="log_pass" name="password" /> <br />
+					<div class="left">Username:</div> <div class="right"><input type="text" id="log_user" name="username" maxlength="18"/></div> <br />
+					<div class="left">Password:</div> <div class="right"><input type="password" id="log_pass" name="password" maxlength="9"/></div> <br />
 					<input type="button" value="Submit" onClick="submit_login()" />
 				</form>
 				<br />
-				<p id="login_fail_message" style="display: none;"> Login Failed!! </p>
+				<p id="login_fail_message" style="display: none; color:  red;"> Login Failed! </p>
 			</div>
 
 		</div>
